@@ -34,7 +34,7 @@ const padId = (id, length) => {
 export const generateDistributedId = async (length = 7) => {
 
     if (!isRedisConnected()) {
-        throw new Error('Redis is not connected');
+        console.log('Redis is not connected');
         return nanoid(length)
     }
     try {
