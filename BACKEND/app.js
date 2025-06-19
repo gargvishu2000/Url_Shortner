@@ -14,8 +14,8 @@ import { createUrlRateLimiter, redirectRateLimiter } from "./src/middleware/rate
 dotenv.config("./.env")
 
 const allowedOrigin =[
+    "https://url-shortner-ashen-zeta.vercel.app",
     "http://localhost:5173",
-    "https://url-shortner-ashen-zeta.vercel.app"
 ]
 
 const app = express();
