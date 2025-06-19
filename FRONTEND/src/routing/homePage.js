@@ -1,7 +1,7 @@
 import { createRoute } from "@tanstack/react-router";
 import { rootRoute } from "./routeTree";
-import HomePage from "../pages/homePage.js";
 import { checkAuth } from "../utils/helper.js";
+import HomePage from "../pages/homePage.jsx";
 
 export const homePageRoute = createRoute({
     getParentRoute: ()=> rootRoute,
