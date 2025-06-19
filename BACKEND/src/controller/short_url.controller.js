@@ -6,8 +6,6 @@ import { getLongUrl } from "../dao/short_url.js";
 
 export const createShortUrl = wrapAsync(async (req, res) => {       
         const data = req.body;
-        console.log(data, "data");
-        
         let shortUrl;
         if (req.user) {
             shortUrl = await createShortUrlServiceWithUser(data.url, req.user._id, data.slug);

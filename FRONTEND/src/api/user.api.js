@@ -7,7 +7,6 @@ export const loginUser  = async(email,password) => {
 
 export const register = async(name,email,password)=>{
     const {data} = await axiosInstance.post("/api/auth/register",{name,email,password})
-    console.log(data, "data");
     return data;
 }
 
