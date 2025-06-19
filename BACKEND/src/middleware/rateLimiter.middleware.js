@@ -18,7 +18,6 @@ export const rateLimiter = (options = {}) => {
   const windowSize = options.windowSizeInSeconds || defaultWindowSize;
   
   return async (req, res, next) => {
-    
     try {
       const ip = req.ip || req.headers['x-forwarded-for'] || req.socket.remoteAddress;
       const key = `ratelimit:${ip}`;
