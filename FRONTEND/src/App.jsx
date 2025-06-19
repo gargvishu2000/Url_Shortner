@@ -1,7 +1,9 @@
 import React from 'react'
-import HomePage from './pages/homePage'
+import HomePage from './pages/Homepage';
+import AuthPage from './pages/AuthPage';
 import { Outlet } from '@tanstack/react-router'
 import Navbar from './components/Navbar'
+import LoginForm from './components/loginForm';
 
 
 const App = () => {
