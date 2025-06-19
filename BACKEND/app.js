@@ -13,16 +13,31 @@ import { connectRedis } from "./src/config/redis.js";
 import { createUrlRateLimiter, redirectRateLimiter } from "./src/middleware/rateLimiter.middleware.js";
 dotenv.config("./.env")
 
-const allowedOrigin =[
-    "https://url-shortner-ashen-zeta.vercel.app",
-    "http://localhost:5173",
-]
-
 const app = express();
+const allowedOrigins = [
+  "https://url-shortner-ashen-zeta.vercel.app",
+  "http://localhost:5173",
+];
+
 app.use(cors({
-    origin: allowedOrigin,
-    credentials: true // this allows the browser to send cookies
-}))
+  origin: function(origin, callback) {
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+    
+    if (allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      console.log("Blocked by CORS:", origin);
+      callback(null, false);
+    }
+  },
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"]
+}));
+
+// Handle OPTIONS preflight requests explicitly
+app.options('*', cors());
 app.use(express.json()); // parses incoming data in the body
 app.use(express.urlencoded({extended:true})); // parses data with the payload.
 app.use(cookieParser());
