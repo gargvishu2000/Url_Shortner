@@ -1,7 +1,7 @@
 import React from 'react'
-import LoginForm from '../components/loginForm'
+import LoginForm from '../components/LoginForm'
 import { useState } from 'react'
-import RegisterForm from '../components/registerForm';
+import RegisterForm from '../components/RegisterForm';
 
 const AuthPage = () => {
 
