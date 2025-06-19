@@ -18,11 +18,6 @@ export const rateLimiter = (options = {}) => {
   const windowSize = options.windowSizeInSeconds || defaultWindowSize;
   
   return async (req, res, next) => {
-    // Skip rate limiting if Redis is not connected
-    if (!redisClient.isReady) {
-      console.log('Rate limiting skipped: Redis not connected');
-      return next();
-    }
     
     try {
       const ip = req.ip || req.headers['x-forwarded-for'] || req.socket.remoteAddress;
