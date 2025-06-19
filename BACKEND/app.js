@@ -13,9 +13,14 @@ import { connectRedis } from "./src/config/redis.js";
 import { createUrlRateLimiter, redirectRateLimiter } from "./src/middleware/rateLimiter.middleware.js";
 dotenv.config("./.env")
 
+const allowedOrigin =[
+    "http://localhost:5173",
+    "https://url-shortner-ashen-zeta.vercel.app"
+]
+
 const app = express();
 app.use(cors({
-    origin: 'http://localhost:5173, https://url-shortner-ashen-zeta.vercel.app/',
+    origin: allowedOrigin,
     credentials: true // this allows the browser to send cookies
 }))
 app.use(express.json()); // parses incoming data in the body
