@@ -1,6 +1,6 @@
 import { createRoute } from "@tanstack/react-router";
 import { rootRoute } from "./routeTree";
-import HomePage from "../pages/homePage";
+import HomePage from "../pages/homePage.js";
 import { checkAuth } from "../utils/helper.js";
 
 export const homePageRoute = createRoute({
