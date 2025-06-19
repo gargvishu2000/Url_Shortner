@@ -16,12 +16,11 @@ export const logout = async()=>{
 }
 export const getCurrentUSer = async()=>{
     const {data}  = await axiosInstance.get("/api/auth/me");
+    console.log(data, "data");
     return data;
 }
 
 export const getAllUserUrls = async()=>{
     const {data}  = await axiosInstance.get("/api/user/url");
-    console.log(data, "data");
-    
     return data;
 }
