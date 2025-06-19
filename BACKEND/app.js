@@ -23,7 +23,7 @@ app.use(cors({
     origin: allowedOrigin,
     credentials: true // this allows the browser to send cookies
 }))
-app.options('/*', cors());
+
 app.use(express.json()); // parses incoming data in the body
 app.use(express.urlencoded({extended:true})); // parses data with the payload.
 app.use(cookieParser());
