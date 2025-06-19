@@ -1,0 +1,62 @@
+version: '3.8'
+
+services:
+  # Redis service
+  redis:
+    image: redis:alpine
+    container_name: redis
+    restart: always
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - app-network
+
+  # Backend service
+  backend:
+    build:
+      context: ./BACKEND
+      dockerfile: Dockerfile
+    container_name: backend
+    restart: always
+    ports:
+      - "5002:5002"
+    depends_on:
+      - redis
+    environment:
+      # Use host.docker.internal to access the host machine from inside Docker
+      - MONGO_URI=mongodb://host.docker.internal:27017/urlshortener
+      - REDIS_URL=redis://redis:6379
+      - JWT_SECRET=${JWT_SECRET:-your_jwt_secret}
+      - APP_URL=http://localhost:5002/
+      - RATE_LIMIT_MAX_REQUESTS=100
+      - RATE_LIMIT_WINDOW_SECONDS=60
+      - CREATE_RATE_LIMIT_MAX=10
+      - CREATE_RATE_LIMIT_WINDOW=60
+    networks:
+      - app-network
+    extra_hosts:
+      # This allows containers to connect to services on the host machine
+      - "host.docker.internal:host-gateway"
+
+  # Frontend service
+  frontend:
+    build:
+      context: ./FRONTEND
+      dockerfile: Dockerfile
+    container_name: frontend
+    restart: always
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  redis_data:
