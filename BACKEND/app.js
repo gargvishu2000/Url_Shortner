@@ -15,7 +15,7 @@ dotenv.config("./.env")
 
 const app = express();
 app.use(cors({
-    origin: 'http://localhost:5173',
+    origin: 'http://localhost:5173, https://url-shortner-ashen-zeta.vercel.app/',
     credentials: true // this allows the browser to send cookies
 }))
 app.use(express.json()); // parses incoming data in the body
