@@ -1,6 +1,6 @@
 import App from "../App";
 import { createRootRoute } from "@tanstack/react-router";
-import { homePageRoute } from "./homePage";
+import {homePageRoute} from "./homepage";
 import { authRoute } from "./auth.route";
 import { dashboardRoute } from "./dashboard";
 

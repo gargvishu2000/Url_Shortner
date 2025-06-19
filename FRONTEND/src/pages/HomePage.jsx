@@ -1,7 +1,7 @@
 import React from 'react'
 import UrlForms from '../components/UrlForms'
 
-const Homepage = () => {
+const HomePage = () => {
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center p-4">
       <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
@@ -14,4 +14,4 @@ const Homepage = () => {
   )
 }
 
-export default Homepage;
+export default HomePage;
