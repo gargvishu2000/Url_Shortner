@@ -1,27 +1,26 @@
-import { createClient } from 'redis';
+import { Redis } from '@upstash/redis';
+// Import node-fetch for Node.js environments that don't have fetch
+import fetch from 'node-fetch';
 
-// Use the REDIS_URL environment variable with a fallback
-const redisClient = createClient({
-    url: process.env.REDIS_URL || 'redis://localhost:6379',
-    socket: {
-        reconnectionStrategy: (retries) => {
-            const delay = Math.min(Math.pow(2, retries) * 100, 10000);
-            return delay;
-        }
-    }
+// Add fetch to global scope if it doesn't exist
+if (!globalThis.fetch) {
+  globalThis.fetch = fetch;
+}
+
+export const redisClient = new Redis({
+  url: process.env.UPSTASH_REDIS_URL,
+  token: process.env.UPSTASH_REDIS_TOKEN,
 });
 
-const connectRedis = async () => {
-    try {
-        await redisClient.connect();
-        console.log(`Redis connected to ${process.env.REDIS_URL || 'redis://localhost:6379'}`);
-        return true;
-    } catch (error) {
-        console.log('Redis connection failed', error);
-        return false;
-    }
+export const connectRedis = async () => {
+  try {
+    // Upstash Redis client doesn't require an explicit connect call
+    // Let's just test the connection with a simple command
+    await redisClient.ping();
+    console.log('Redis connection established');
+    return true;
+  } catch (error) {
+    console.error('Redis connection failed:', error);
+    return false;
+  }
 };
-
-redisClient.on('error', (err) => console.log('Redis Client Error', err));
-
-export { redisClient, connectRedis };
